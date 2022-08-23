@@ -16,7 +16,6 @@ const initialState = {
   city: '',
   country: '',
 };
-
 function TripForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [countries, setCountries] = useState([]);
@@ -31,7 +30,7 @@ function TripForm({ obj }) {
 
   useEffect(() => {
     if (obj.firebaseKey) setFormInput(obj);
-  }, []);
+  }, [obj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +46,9 @@ function TripForm({ obj }) {
       updateTrip(formInput)
         .then(() => router.push('/yourTrips'));
     } else {
-      const payload = { ...formInput, uid: user.uid };
+      const payload = {
+        ...formInput, uid: user.uid, userPhoto: user.photoURL, userName: user.displayName,
+      };
       createTrip(payload).then(() => {
         router.push('/yourTrips');
       });
@@ -62,7 +63,7 @@ function TripForm({ obj }) {
         <Form.Control type="text" placeholder="Enter Trip Title" name="title" value={formInput.title} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput2" label="Trip Description" className="mb-3">
-        <Form.Control type="text" placeholder="Enter Trip Description" name="description" value={formInput.position} onChange={handleChange} required />
+        <Form.Control type="text" placeholder="Enter Trip Description" name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput2" label="Trip Image" className="mb-3">
         <Form.Control type="url" placeholder="Add Trip Photo" name="imageUrl" value={formInput.imageUrl} onChange={handleChange} required />
@@ -81,7 +82,7 @@ function TripForm({ obj }) {
               <option
                 key={country.firebaseKey}
                 value={country.firebaseKey}
-                selected={obj.country !== '' ? obj.firebaseKey === country.firebaseKey : ''}
+                selected={!obj ? '' : obj.country === country.name}
               >
                 {country.name}
               </option>
