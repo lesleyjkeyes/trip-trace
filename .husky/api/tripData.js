@@ -59,6 +59,17 @@ const getUserTrips = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getPublicTrips = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/trips.json?orderBy="public"&equalTo=true`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
 export { 
   createTrip,
   updateTrip,
@@ -66,4 +77,5 @@ export {
   getSingleTrip,
   deleteSingleTrip,
   getUserTrips,
+  getPublicTrips,
 }
