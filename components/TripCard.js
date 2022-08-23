@@ -16,7 +16,7 @@ export default function TripCard({ tripObj, onUpdate }) {
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '400px' }} />
       <Card.Body>
-        <Link href={`/Trip/${tripObj.firebaseKey}`} passHref>
+        <Link href={`/Trip/${tripObj?.firebaseKey}`} passHref>
           <Card.Title>{tripObj?.title}</Card.Title>
         </Link>
         <Image className="userPhoto" src={tripObj?.userPhoto} />
@@ -29,9 +29,9 @@ export default function TripCard({ tripObj, onUpdate }) {
         <Card.Text>
           Country: {tripObj?.country}
         </Card.Text>
-        {tripObj.city && (
+        {tripObj?.city && (
           <Card.Text>
-            City: {tripObj.city}
+            City: {tripObj?.city}
           </Card.Text>
         )}
         <Link href={`/Trip/edit/${tripObj?.firebaseKey}`} passHref>
