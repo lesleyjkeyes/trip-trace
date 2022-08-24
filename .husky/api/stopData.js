@@ -15,6 +15,12 @@ const getAllStops = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getTripStops = (tripFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/stops.json?orderBy="tripFirebaseKey"&equalTo="${tripFirebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
 const getSingleStop = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/stops/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -28,13 +34,11 @@ const updateStop = (stopObj) => new Promise((resolve, reject) => {
 });
 
 const createStop = (stopObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/stops.json`, tripObj)
+  axios.post(`${dbUrl}/stops.json`, stopObj)
     .then((response) => {
       const payload = { stopFirebaseKey: response.data.name };
       axios.patch(`${dbUrl}/stops/${response.data.name}.json`, payload)
-        .then(() => {
-          getAllStops(stopObj.uid).then(resolve);
-        });
+        .then((patchResponse) => resolve(patchResponse.data));
     }).catch(reject);
 });
 
@@ -53,4 +57,5 @@ export {
   getAllStops,
   getSingleStop,
   deleteSingleStop,
+  getTripStops,
 }

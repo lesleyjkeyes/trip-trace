@@ -108,6 +108,9 @@ function TripForm({ obj }) {
               }));
             }}
           />
+          <FloatingLabel controlId="floatingInput2" label="Trip Duration(Days)" className="mb-3">
+            <Form.Control type="number" placeholder="Enter Trip Duration(Days)" name="duration" value={formInput.duration} onChange={handleChange} required />
+          </FloatingLabel>
           <Button type="submit">{obj.tripFirebaseKey ? 'Update' : 'Create'} Trip</Button>
         </Form>
       ) : (

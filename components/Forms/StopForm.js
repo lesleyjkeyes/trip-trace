@@ -6,17 +6,18 @@ import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { createTrip, updateTrip } from '../../.husky/api/tripData';
 import getAllCountries from '../../.husky/api/countryData';
+import { createStop, updateStop } from '../../.husky/api/stopData';
 
 const initialState = {
   stopTitle: '',
   stopDuration: '',
   stopCity: '',
   stopCountry: '',
+  stopDescription: '',
 };
 // eslint-disable-next-line react/prop-types
-function TripForm({ tripFirebaseKey, stopObj }) {
+function StopForm({ tripFirebaseKey, stopObj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [countries, setCountries] = useState([]);
   const router = useRouter();
@@ -42,14 +43,14 @@ function TripForm({ tripFirebaseKey, stopObj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (stopObj.stopFirebaseKey) {
-      updateTrip(formInput)
+      updateStop(formInput)
         .then(() => router.push(`/Trip/${tripFirebaseKey}`));
     } else {
       const payload = {
-        ...formInput, uid: user.uid, userName: user.displayName,
+        ...formInput, uid: user.uid, userName: user.displayName, tripFirebaseKey,
       };
-      createTrip(payload).then(() => {
-        router.push('/yourTrips');
+      createStop(payload).then(() => {
+        router.push(`/Trip/${tripFirebaseKey}`);
       });
     }
   };
@@ -97,7 +98,7 @@ function TripForm({ tripFirebaseKey, stopObj }) {
   );
 }
 
-TripForm.propTypes = {
+StopForm.propTypes = {
   stopObj: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
@@ -110,8 +111,8 @@ TripForm.propTypes = {
   }),
 };
 
-TripForm.defaultProps = {
+StopForm.defaultProps = {
   stopObj: initialState,
 };
 
-export default TripForm;
+export default StopForm;
