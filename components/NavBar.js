@@ -20,6 +20,9 @@ export default function NavBar() {
             <Link passHref href="/yourTrips">
               <Nav.Link>Your Trips</Nav.Link>
             </Link>
+            <Link passHref href="/">
+              <Nav.Link>View Trips by Country</Nav.Link>
+            </Link>
             <Link passHref href="/Trip/new">
               <Nav.Link>Add a Trip</Nav.Link>
             </Link>
