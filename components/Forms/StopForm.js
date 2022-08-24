@@ -10,14 +10,13 @@ import { createTrip, updateTrip } from '../../.husky/api/tripData';
 import getAllCountries from '../../.husky/api/countryData';
 
 const initialState = {
-  title: '',
-  description: '',
-  imageUrl: '',
-  city: '',
-  country: '',
-  duration: '',
+  stopTitle: '',
+  stopDuration: '',
+  stopCity: '',
+  stopCountry: '',
 };
-function TripForm({ obj }) {
+// eslint-disable-next-line react/prop-types
+function TripForm({ tripFirebaseKey, stopObj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [countries, setCountries] = useState([]);
   const router = useRouter();
@@ -25,13 +24,12 @@ function TripForm({ obj }) {
 
   useEffect(() => {
     getAllCountries().then(setCountries);
-    console.warn(countries);
-    if (obj.tripFirebaseKey) setFormInput(obj);
+    if (stopObj.stopFirebaseKey) setFormInput(stopObj);
   }, []);
 
   useEffect(() => {
-    if (obj.tripFirebaseKey) setFormInput(obj);
-  }, [obj]);
+    if (stopObj.stopFirebaseKey) setFormInput(stopObj);
+  }, [stopObj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,12 +41,12 @@ function TripForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.tripFirebaseKey) {
+    if (stopObj.stopFirebaseKey) {
       updateTrip(formInput)
-        .then(() => router.push('/yourTrips'));
+        .then(() => router.push(`/Trip/${tripFirebaseKey}`));
     } else {
       const payload = {
-        ...formInput, uid: user.uid, userPhoto: user.photoURL, userName: user.displayName,
+        ...formInput, uid: user.uid, userName: user.displayName,
       };
       createTrip(payload).then(() => {
         router.push('/yourTrips');
@@ -59,15 +57,12 @@ function TripForm({ obj }) {
   return (
     // name(set this to the name of the object), value and onChange. type will also be required. placeholder and required are optional
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.tripFirebaseKey ? 'Update' : 'Create'} Trip</h2>
-      <FloatingLabel controlId="floatingInput1" label="Trip Title" className="mb-3">
-        <Form.Control type="text" placeholder="Enter Trip Title" name="title" value={formInput.title} onChange={handleChange} required />
+      <h2 className="text-white mt-5">{stopObj.stopFirebaseKey ? 'Update' : 'Create'} Stop</h2>
+      <FloatingLabel controlId="floatingInput1" label="Stop Title" className="mb-3">
+        <Form.Control type="text" placeholder="Enter Stop Title" name="stopTitle" value={formInput.stopTitle} onChange={handleChange} required />
       </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="Trip Description" className="mb-3">
-        <Form.Control type="text" placeholder="Enter Trip Description" name="description" value={formInput.description} onChange={handleChange} required />
-      </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="Trip Image" className="mb-3">
-        <Form.Control type="url" placeholder="Add Trip Photo" name="imageUrl" value={formInput.imageUrl} onChange={handleChange} required />
+      <FloatingLabel controlId="floatingInput2" label="Stop Description" className="mb-3">
+        <Form.Control type="text" placeholder="Enter Stop Description" name="stopDescription" value={formInput.stopDescription} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingSelect" label="Country">
         <Form.Select
@@ -83,7 +78,7 @@ function TripForm({ obj }) {
               <option
                 key={country.firebaseKey}
                 value={country.firebaseKey}
-                selected={!obj ? '' : obj.country === country.name}
+                selected={!stopObj ? '' : stopObj.country === country.name}
               >
                 {country.name}
               </option>
@@ -91,22 +86,23 @@ function TripForm({ obj }) {
           }
         </Form.Select>
       </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="City" className="mb-3">
-        <Form.Control type="text" placeholder="Add City(Optional)" name="city" value={formInput.city} onChange={handleChange} />
+      <FloatingLabel controlId="floatingInput2" label="Stop City" className="mb-3">
+        <Form.Control type="text" placeholder="Add Stop City(Optional)" name="stopCity" value={formInput.stopCity} onChange={handleChange} />
       </FloatingLabel>
-      <FloatingLabel controlId="floatingInput2" label="Trip Duration(Days)" className="mb-3">
-        <Form.Control type="number" placeholder="Enter Trip Duration(Days)" name="duration" value={formInput.duration} onChange={handleChange} required />
+      <FloatingLabel controlId="floatingInput2" label="Stop Duration(Days)" className="mb-3">
+        <Form.Control type="number" placeholder="Enter Stop Duration(Days)" name="stopDuration" value={formInput.stopDuration} onChange={handleChange} required />
       </FloatingLabel>
-      <Button type="submit">{obj.tripFirebaseKey ? 'Update' : 'Create'} Trip</Button>
+      <Button type="submit">{stopObj.stopFirebaseKey ? 'Update' : 'Create'} Stop</Button>
     </Form>
   );
 }
 
 TripForm.propTypes = {
-  obj: PropTypes.shape({
+  stopObj: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     imageUrl: PropTypes.string,
+    stopFirebaseKey: PropTypes.string,
     tripFirebaseKey: PropTypes.string,
     city: PropTypes.string,
     country: PropTypes.string,
@@ -115,7 +111,7 @@ TripForm.propTypes = {
 };
 
 TripForm.defaultProps = {
-  obj: initialState,
+  stopObj: initialState,
 };
 
 export default TripForm;
