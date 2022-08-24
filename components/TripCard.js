@@ -8,7 +8,7 @@ import { deleteSingleTrip } from '../.husky/api/tripData';
 export default function TripCard({ tripObj, onUpdate }) {
   const deleteThisTrip = () => {
     if (window.confirm(`Delete ${tripObj.title}?`)) {
-      deleteSingleTrip(tripObj.firebaseKey).then(() => onUpdate());
+      deleteSingleTrip(tripObj.tripFirebaseKey).then(() => onUpdate());
     }
   };
   console.warn(tripObj);
@@ -16,7 +16,7 @@ export default function TripCard({ tripObj, onUpdate }) {
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '400px' }} />
       <Card.Body>
-        <Link href={`/Trip/${tripObj?.firebaseKey}`} passHref>
+        <Link href={`/Trip/${tripObj?.tripFirebaseKey}`} passHref>
           <Card.Title>{tripObj?.title}</Card.Title>
         </Link>
         <Image className="userPhoto" src={tripObj?.userPhoto} />
@@ -34,7 +34,7 @@ export default function TripCard({ tripObj, onUpdate }) {
             City: {tripObj?.city}
           </Card.Text>
         )}
-        <Link href={`/Trip/edit/${tripObj?.firebaseKey}`} passHref>
+        <Link href={`/Trip/edit/${tripObj?.tripFirebaseKey}`} passHref>
           <Button variant="info" style={{ margin: '5px' }}>EDIT</Button>
         </Link>
         <Button variant="danger" style={{ margin: '5px' }} onClick={deleteThisTrip}>Delete</Button>
@@ -48,7 +48,7 @@ TripCard.propTypes = {
     imageUrl: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    tripFirebaseKey: PropTypes.string,
     country: PropTypes.string,
     city: PropTypes.string,
     userPhoto: PropTypes.string,

@@ -31,7 +31,7 @@ const createTrip = (tripObj) => new Promise((resolve, reject) => {
   console.warn(tripObj);
   axios.post(`${dbUrl}/trips.json`, tripObj)
     .then((response) => {
-      const payload = { firebaseKey: response.data.name };
+      const payload = { tripFirebaseKey: response.data.name };
       axios.patch(`${dbUrl}/trips/${response.data.name}.json`, payload)
         .then(() => {
           getAllTrips(tripObj.uid).then(resolve);

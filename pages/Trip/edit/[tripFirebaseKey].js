@@ -7,11 +7,11 @@ export default function EditTrip() {
   const [editItem, setEditItem] = useState({});
   const router = useRouter();
 
-  const { firebaseKey } = router.query;
+  const { tripFirebaseKey } = router.query;
 
   useEffect(() => {
-    getSingleTrip(firebaseKey).then(setEditItem);
-  }, [firebaseKey]);
+    getSingleTrip(tripFirebaseKey).then(setEditItem);
+  }, [tripFirebaseKey]);
 
   return (<TripForm obj={editItem} />);
 }
