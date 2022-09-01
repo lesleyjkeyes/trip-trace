@@ -5,10 +5,12 @@ import { useRouter } from 'next/router';
 import { getSingleTrip } from '../../.husky/api/tripData';
 import StopCard from '../../components/StopCard';
 import { getTripStops } from '../../.husky/api/stopData';
+import { useAuth } from '../../utils/context/authContext';
 
 function SingleTripView() {
   const [trip, setTrip] = useState({});
   const [stops, setStops] = useState([]);
+  const { user } = useAuth();
   const router = useRouter();
   const { tripFirebaseKey } = router.query;
 
@@ -53,13 +55,13 @@ function SingleTripView() {
         </Card.Body>
       </Card>
       <div>
-        <Link passHref href="/Trip/stop/new">
+        <Link passHref href={`/Trip/${tripFirebaseKey}/stop/new`}>
           <Button variant="dark">Add Stop</Button>
         </Link>
       </div>
       <div className="stopsDiv">
-        {stops?.map((stop) => (
-          <StopCard key={stop.FirebaseKey} stopObj={stop} opts={{ height: '160', width: '280' }} onUpdate={getAllTripStops} router={router.asPath} />
+        {stops?.map((stop, index) => (
+          <StopCard uid={user.uid} index={index} key={stop.FirebaseKey} stopObj={stop} opts={{ height: '160', width: '280' }} onUpdate={getAllTripStops} router={router.asPath} />
         ))}
       </div>
     </div>

@@ -25,12 +25,10 @@ function TripForm({ obj }) {
 
   useEffect(() => {
     getAllCountries().then(setCountries);
-    console.warn(countries);
-    if (obj.tripFirebaseKey) setFormInput(obj);
   }, []);
 
   useEffect(() => {
-    if (obj.tripFirebaseKey) setFormInput(obj);
+    if (obj?.tripFirebaseKey) setFormInput(obj);
   }, [obj]);
 
   const handleChange = (e) => {
@@ -60,7 +58,7 @@ function TripForm({ obj }) {
     <>
       {user.uid ? (
         <Form onSubmit={handleSubmit}>
-          <h2 className="text-white mt-5">{obj.tripFirebaseKey ? 'Update' : 'Create'} Trip</h2>
+          <h2 className="text-white mt-5">{obj?.tripFirebaseKey ? 'Update' : 'Create'} Trip</h2>
           <FloatingLabel controlId="floatingInput1" label="Trip Title" className="mb-3">
             <Form.Control type="text" placeholder="Enter Trip Title" name="title" value={formInput.title} onChange={handleChange} required />
           </FloatingLabel>
@@ -111,13 +109,13 @@ function TripForm({ obj }) {
           <FloatingLabel controlId="floatingInput2" label="Trip Duration(Days)" className="mb-3">
             <Form.Control type="number" placeholder="Enter Trip Duration(Days)" name="duration" value={formInput.duration} onChange={handleChange} required />
           </FloatingLabel>
-          <Button type="submit">{obj.tripFirebaseKey ? 'Update' : 'Create'} Trip</Button>
+          <Button type="submit">{obj?.tripFirebaseKey ? 'Update' : 'Create'} Trip</Button>
         </Form>
       ) : (
         <div>
           <h1>Sign in to Add/Edit a Video</h1>
         </div>
-      )};
+      )}
     </>
   );
 }

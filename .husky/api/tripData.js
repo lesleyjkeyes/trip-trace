@@ -22,7 +22,7 @@ const getSingleTrip = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const updateTrip = (tripObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/trips/${tripObj.firebaseKey}.json`, tripObj)
+  axios.patch(`${dbUrl}/trips/${tripObj.tripFirebaseKey}.json`, tripObj)
     .then(() => getAllTrips(tripObj.uid).then(resolve))
     .catch(reject);
 });

@@ -11,7 +11,7 @@ export default function TripCard({ tripObj, onUpdate }) {
       deleteSingleTrip(tripObj.tripFirebaseKey).then(() => onUpdate());
     }
   };
-  console.warn(tripObj);
+
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '400px' }} />

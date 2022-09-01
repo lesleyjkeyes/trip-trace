@@ -13,19 +13,18 @@ const initialState = {
   stopTitle: '',
   stopDuration: '',
   stopCity: '',
-  stopCountry: '',
   stopDescription: '',
 };
 // eslint-disable-next-line react/prop-types
-function StopForm({ tripFirebaseKey, stopObj }) {
+function StopForm({ stopObj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [countries, setCountries] = useState([]);
   const router = useRouter();
+  const { tripFirebaseKey } = router.query;
   const { user } = useAuth();
 
   useEffect(() => {
     getAllCountries().then(setCountries);
-    if (stopObj.stopFirebaseKey) setFormInput(stopObj);
   }, []);
 
   useEffect(() => {
