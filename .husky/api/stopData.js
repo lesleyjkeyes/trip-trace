@@ -28,7 +28,7 @@ const getSingleStop = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const updateStop = (stopObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/stops/${stopObj.firebaseKey}.json`, stopObj)
+  axios.patch(`${dbUrl}/stops/${stopObj.stopFirebaseKey}.json`, stopObj)
     .then(() => getAllStops(stopObj.uid).then(resolve))
     .catch(reject);
 });

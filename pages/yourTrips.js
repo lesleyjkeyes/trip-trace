@@ -14,7 +14,6 @@ function YourTrips() {
   };
 
   useEffect(() => {
-    console.warn(trips);
     getYourTrips();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
