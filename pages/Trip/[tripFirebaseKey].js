@@ -6,6 +6,7 @@ import { getSingleTrip } from '../../.husky/api/tripData';
 import StopCard from '../../components/StopCard';
 import { getTripStops } from '../../.husky/api/stopData';
 import { useAuth } from '../../utils/context/authContext';
+import PackingTable from '../../components/PackingTable';
 
 function SingleTripView() {
   const [trip, setTrip] = useState({});
@@ -63,6 +64,12 @@ function SingleTripView() {
         {stops?.map((stop, index) => (
           <StopCard uid={user.uid} index={index} key={stop.FirebaseKey} stopObj={stop} opts={{ height: '160', width: '280' }} onUpdate={getAllTripStops} router={router.asPath} />
         ))}
+      </div>
+      <div>
+        <Link passHref href={`/Trip/${tripFirebaseKey}/item/new`}>
+          <Button variant="dark">Add Item</Button>
+        </Link>
+        <PackingTable uid={user.uid} tripFirebaseKey={tripFirebaseKey} />
       </div>
     </div>
   );
