@@ -8,12 +8,13 @@ import { deleteSingleItem, getTripItems } from '../.husky/api/packData';
 function PackingTable({ tripFirebaseKey, uid }) {
   const [items, setItems] = useState([]);
 
-  const getItems = () => {
-    getTripItems(tripFirebaseKey).then(setItems);
+  const getItems = async () => {
+    await getTripItems(tripFirebaseKey).then(setItems);
   };
 
-  const deleteAnItem = (packFirebaseKey) => {
-    deleteSingleItem(packFirebaseKey).then(getItems());
+  const deleteAnItem = async (packFirebaseKey) => {
+    await deleteSingleItem(packFirebaseKey);
+    getItems();
   };
 
   useEffect(() => {

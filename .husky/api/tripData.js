@@ -28,7 +28,6 @@ const updateTrip = (tripObj) => new Promise((resolve, reject) => {
 });
 
 const createTrip = (tripObj) => new Promise((resolve, reject) => {
-  console.warn(tripObj);
   axios.post(`${dbUrl}/trips.json`, tripObj)
     .then((response) => {
       const payload = { tripFirebaseKey: response.data.name };
@@ -70,6 +69,17 @@ const getPublicTrips = () => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const getFavoriteTrips = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/trips.json?orderBy="favorite"&equalTo=true`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
 export { 
   createTrip,
   updateTrip,
@@ -78,4 +88,5 @@ export {
   deleteSingleTrip,
   getUserTrips,
   getPublicTrips,
+  getFavoriteTrips,
 }
