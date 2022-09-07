@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import Link from 'next/link';
+import Form from 'react-bootstrap/Form';
 import {
   Navbar, Container, Nav, Button,
 } from 'react-bootstrap';
@@ -33,6 +34,15 @@ export default function NavBar() {
               <Nav.Link>Profile</Nav.Link>
             </Link>
             <Button variant="dark" onClick={signOut}>Sign Out</Button>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="search-trips"
+                aria-label="Search"
+              />
+              <Button variant="dark">Search</Button>
+            </Form>
           </Nav>
         </Navbar.Collapse>
       </Container>
