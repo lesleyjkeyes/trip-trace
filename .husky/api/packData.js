@@ -42,9 +42,10 @@ const createItem = (packObj) => new Promise((resolve, reject) => {
     }).catch(reject);
 });
 
-const deleteSingleItem = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/items/${firebaseKey}.json`)
-    .catch((error) => reject(error));
+const deleteSingleItem = (itemFirebaseKey, tripFirebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/items/${itemFirebaseKey}.json`)
+  .then(() => getTripItems(tripFirebaseKey).then(resolve))
+  .catch(reject);
 });
 
 

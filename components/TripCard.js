@@ -12,17 +12,18 @@ import { createFavorite, deleteSingleFavorite, getFavorites } from '../.husky/ap
 export default function TripCard({ tripObj, onUpdate }) {
   const [favorite, setFavorite] = useState({});
   const [favorites, setFavorites] = useState([]);
+  const [toggleFav, setToggleFav] = useState(false);
   const { user } = useAuth();
 
   const checkFavorite = () => {
     const favObj = favorites.find((fav) => fav?.tripFirebaseKey === tripObj?.tripFirebaseKey);
     if (favObj !== undefined) {
       setFavorite(favObj);
+      setToggleFav(true);
     }
   };
   const getAndSetUserFavorites = () => {
     getFavorites(user.uid).then((data) => {
-      console.warn(data);
       setFavorites(data);
     });
   };
@@ -50,8 +51,10 @@ export default function TripCard({ tripObj, onUpdate }) {
         tripFirebaseKey: tripObj.tripFirebaseKey,
       };
       createFavorite(favObj).then(async () => { await getAndSetUserFavorites(); });
+      setToggleFav(true);
     } else {
       deleteSingleFavorite(favorite.favoriteFirebaseKey);
+      setToggleFav(false);
     }
   };
 
@@ -82,11 +85,11 @@ export default function TripCard({ tripObj, onUpdate }) {
           </Card.Text>
         )}
         <Form>
+          Favorite?
           <Form.Check
-            type="checkbox"
-            id={!favorite ? favorite?.favoriteFirebaseKey : 'fav-check'}
-            label="Favorite"
-            // checked={!!favorite}
+            type="switch"
+            id="fav-switch"
+            checked={toggleFav}
             onChange={(e) => handleFavorite(e.target.checked)}
           />
         </Form>
