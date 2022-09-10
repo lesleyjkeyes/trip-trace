@@ -11,7 +11,7 @@ export default function SearchPage() {
     getPublicTrips().then((tripsArray) => {
       const value = router.query.keyword;
       setFilteredData(tripsArray);
-      const results = tripsArray.filter((trip) => trip.title.toLowerCase().includes(value.toLowerCase()) || trip.creatorName.toLowerCase().includes(value.toLowerCase()));
+      const results = tripsArray.filter((trip) => trip.title.toLowerCase().includes(value.toLowerCase()) || trip.userName.toLowerCase().includes(value.toLowerCase()) || trip.country.toLowerCase().includes(value.toLowerCase()));
       setFilteredData(results);
     });
   };
@@ -24,7 +24,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <h1>Search Results for {router.query.keyword.toLocaleUpperCase()}</h1>
+      <h1>Search Results for {router.query.keyword}</h1>
       <div>
         {filteredData.length ? filteredData.map((trip) => (
           <TripCard key={trip.tripFirebaseKey} tripObj={trip} onUpdate={getAllTheTrips} />
