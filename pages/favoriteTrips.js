@@ -18,7 +18,7 @@ function FavoriteTrips() {
 
   return (
     <div className="likedVideosPage">
-      <div className="likedVideosDiv">
+      <div className="tripCards">
         {user.uid ? (
           <>
             {trips?.map((trip) => (

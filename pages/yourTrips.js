@@ -27,7 +27,7 @@ function YourTrips() {
               <h2 className="myTripsh2">My Trips</h2>
             </div>
           </div>
-          <div className="myTripsDiv">
+          <div className="tripCards">
             {trips?.map((trip) => (
               <TripCard key={trip.FirebaseKey} tripObj={trip} opts={{ height: '160', width: '280' }} onUpdate={getYourTrips} router={router.asPath} />
             ))}
