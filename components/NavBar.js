@@ -5,6 +5,7 @@ import {
   Navbar, Container, Nav, Button,
 } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
+import SearchBar from './SearchBar';
 
 export default function NavBar() {
   return (
@@ -33,6 +34,7 @@ export default function NavBar() {
               <Nav.Link>Profile</Nav.Link>
             </Link>
             <Button variant="dark" onClick={signOut}>Sign Out</Button>
+            <SearchBar />
           </Nav>
         </Navbar.Collapse>
       </Container>
