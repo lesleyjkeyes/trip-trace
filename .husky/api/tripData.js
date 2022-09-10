@@ -80,6 +80,17 @@ const getFavoriteTrips = () => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const getTripsByCountry = (country) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/trips.json?orderBy="country"&equalTo="${country}"`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
 export { 
   createTrip,
   updateTrip,
@@ -89,4 +100,5 @@ export {
   getUserTrips,
   getPublicTrips,
   getFavoriteTrips,
+  getTripsByCountry,
 }

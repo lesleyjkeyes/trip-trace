@@ -20,3 +20,8 @@ a {
 body {
   background-color: #208aae;
 }
+
+.tripCards {
+  display:flex;
+  flex-direction: row;
+}

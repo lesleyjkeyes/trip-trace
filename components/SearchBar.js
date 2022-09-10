@@ -25,7 +25,7 @@ export default function SearchBar() {
   return (
     <Nav.Item className="searchBar ms-auto">
       <Form className="d-flex">
-        <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" value={searchInput} onChange={handleChange} onKeyDown={handleKeyDown} />
+        <Form.Control style={{ width: 250, marginLeft: 10 }} type="search" placeholder="Search by Title/Country/User" className="me-2" aria-label="Search" value={searchInput} onChange={handleChange} onKeyDown={handleKeyDown} />
         <Button variant="dark">Search</Button>
       </Form>
     </Nav.Item>

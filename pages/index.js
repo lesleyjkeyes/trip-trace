@@ -19,7 +19,7 @@ function Home() {
 
   return (
     <div className="text-center my-4">
-      <div className="publicTrips">
+      <div className="tripCards">
         {trips?.map((trip) => (
           <TripCard key={trip.firebaseKey} tripObj={trip} user={user} opts={{ height: '160', width: '280' }} onUpdate={getAllPublicTrips} />
         ))}

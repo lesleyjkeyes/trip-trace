@@ -21,7 +21,7 @@ export default function NavBar() {
             <Link passHref href="/yourTrips">
               <Nav.Link>Your Trips</Nav.Link>
             </Link>
-            <Link passHref href="/">
+            <Link passHref href="/countryFilter">
               <Nav.Link>View Trips by Country</Nav.Link>
             </Link>
             <Link passHref href="/Trip/new">
