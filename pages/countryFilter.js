@@ -4,10 +4,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import getAllCountries from '../.husky/api/countryData';
 import { getTripsByCountry } from '../.husky/api/tripData';
 import TripCard from '../components/TripCard';
-import { useAuth } from '../utils/context/authContext';
 
 function CountryFilter() {
-  const { user } = useAuth();
   const [trips, setTrips] = useState([]);
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('');
@@ -59,7 +57,7 @@ function CountryFilter() {
           {
             trips.length > 0
               ? trips?.map((trip) => (trip.public === true && (
-                <TripCard key={trip.firebaseKey} tripObj={trip} user={user} opts={{ height: '160', width: '280' }} />
+                <TripCard key={trip.firebaseKey} tripObj={trip} opts={{ height: '160', width: '280' }} />
               )
               ))
               : (

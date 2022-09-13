@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { deleteSingleItem, getTripItems } from '../.husky/api/packData';
 
 // eslint-disable-next-line react/prop-types
-function PackingTable({ tripFirebaseKey, uid }) {
+function PackingTable({ tripFirebaseKey, uid = '' }) {
   const [items, setItems] = useState([]);
 
   const getItems = () => {

@@ -4,10 +4,13 @@ import Link from 'next/link';
 import {
   Navbar, Container, Nav, Button,
 } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { signIn, signOut } from '../utils/auth';
 import SearchBar from './SearchBar';
+import { useAuth } from '../utils/context/authContext';
 
 export default function NavBar() {
+  const { user } = useAuth();
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="orange" variant="dark">
       <Container>
@@ -33,7 +36,11 @@ export default function NavBar() {
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>
             </Link>
-            <Button variant="dark" onClick={signOut}>Sign Out</Button>
+            {
+            user ? (<Button variant="dark" onClick={signOut}>Sign Out</Button>)
+              : (<Button variant="dark" onClick={signIn}>Sign In</Button>)
+            }
+
             <SearchBar />
           </Nav>
         </Navbar.Collapse>

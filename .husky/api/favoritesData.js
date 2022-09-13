@@ -42,4 +42,10 @@ const getFavoritesByUser = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { createFavorite, deleteSingleFavorite, getFavorites, getFavoritesByUser, }
+const getTripFavorites = (tripFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/favorites.json?orderBy="tripFirebaseKey"&equalTo="${tripFirebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch(reject);
+});
+
+export { createFavorite, deleteSingleFavorite, getFavorites, getFavoritesByUser, getTripFavorites }

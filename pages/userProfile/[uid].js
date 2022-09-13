@@ -39,11 +39,15 @@ function UserProfile() {
           </Card.Body>
         </Card>
       </div>
-      <h2>Your Profile</h2>
-      <div className="mainTrips">
-        {trips?.map((trip) => (
-          <TripCard key={trip.tripFirebaseKey} tripObj={trip} onUpdate={getTheseTrips} router={router.asPath} />
-        ))}
+      <h2>{user.userName}</h2>
+      <div className="tripCards">
+        {
+          trips.length > 0
+            ? trips?.map((trip) => (trip.public === true && (
+            <TripCard key={trip.tripFirebaseKey} tripObj={trip} onUpdate={getTheseTrips} router={router.asPath} />
+            )
+            )) : ''
+            }
       </div>
 
     </div>

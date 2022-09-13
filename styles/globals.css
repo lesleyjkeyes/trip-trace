@@ -24,4 +24,11 @@ body {
 .tripCards {
   display:flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.stopsDiv {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

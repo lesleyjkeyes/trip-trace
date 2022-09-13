@@ -25,7 +25,7 @@ export default function SearchPage() {
   return (
     <>
       <h1>Search Results for {router.query.keyword}</h1>
-      <div>
+      <div className="tripCards">
         {filteredData.length ? filteredData.map((trip) => (
           <TripCard key={trip.tripFirebaseKey} tripObj={trip} onUpdate={getAllTheTrips} />
         )) : <h2>No Results</h2>}
