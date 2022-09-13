@@ -6,8 +6,8 @@ import { Image } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../utils/context/authContext';
-import { deleteSingleTrip } from '../.husky/api/tripData';
 import { createFavorite, deleteSingleFavorite, getFavorites } from '../.husky/api/favoritesData';
+import { deleteEntireTrip } from '../.husky/api/mergeData';
 
 export default function TripCard({ tripObj, onUpdate }) {
   const [favorite, setFavorite] = useState({});
@@ -40,7 +40,7 @@ export default function TripCard({ tripObj, onUpdate }) {
 
   const deleteThisTrip = () => {
     if (window.confirm(`Delete ${tripObj.title}?`)) {
-      deleteSingleTrip(tripObj.tripFirebaseKey).then(() => onUpdate());
+      deleteEntireTrip(tripObj.tripFirebaseKey).then(() => onUpdate());
     }
   };
 
@@ -84,19 +84,27 @@ export default function TripCard({ tripObj, onUpdate }) {
             City: {tripObj?.city}
           </Card.Text>
         )}
-        <Form>
-          Favorite?
-          <Form.Check
-            type="switch"
-            id="fav-switch"
-            checked={toggleFav}
-            onChange={(e) => handleFavorite(e.target.checked)}
-          />
-        </Form>
-        <Link href={`/Trip/edit/${tripObj?.tripFirebaseKey}`} passHref>
-          <Button variant="info" style={{ margin: '5px' }}>EDIT</Button>
-        </Link>
-        <Button variant="danger" style={{ margin: '5px' }} onClick={deleteThisTrip}>Delete</Button>
+        { user && (
+          <>
+            <Form>
+              Favorite?
+              <Form.Check
+                type="switch"
+                id="fav-switch"
+                checked={toggleFav}
+                onChange={(e) => handleFavorite(e.target.checked)}
+              />
+            </Form>
+            { user.uid === tripObj.uid && (
+              <>
+                <Link href={`/Trip/edit/${tripObj?.tripFirebaseKey}`} passHref>
+                  <Button variant="info" style={{ margin: '5px' }}>EDIT</Button>
+                </Link>
+                <Button variant="danger" style={{ margin: '5px' }} onClick={deleteThisTrip}>Delete</Button>
+              </>
+            )}
+          </>
+        )}
       </Card.Body>
     </Card>
   );

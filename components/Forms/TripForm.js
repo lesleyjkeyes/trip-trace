@@ -113,7 +113,7 @@ function TripForm({ obj }) {
         </Form>
       ) : (
         <div>
-          <h1>Sign in to Add/Edit a Video</h1>
+          <h1>Sign in to Add a Trip</h1>
         </div>
       )}
     </>

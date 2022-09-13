@@ -1,4 +1,5 @@
-import { getFavoritesByUser } from "./favoritesData";
+import { deleteSingleFavorite, getFavoritesByUser, getTripFavorites } from "./favoritesData";
+import { deleteSingleItem, getTripItems } from "./packData";
 import { deleteSingleStop, getTripStops } from "./stopData";
 import { deleteSingleTrip, getFavoriteTrips, getSingleTrip } from "./tripData";
 
@@ -20,4 +21,19 @@ const getUsersFavoriteTrips = async (uid) => {
   return tripObjectArray;
 };
 
-export { deleteTripStops, getUsersFavoriteTrips, }
+const deleteEntireTrip = (tripFirebaseKey) => new Promise((resolve, reject) => {
+  getTripStops(tripFirebaseKey).then((stopsArray) => {
+    const deleteStopPromises = stopsArray.map((stop) => deleteSingleStop(stop.stopFirebaseKey));
+    getTripItems(tripFirebaseKey).then((itemsArray) => {
+      const deleteItemPromises = itemsArray.map((item) => deleteSingleItem(item.packFirebaseKey));
+      getTripFavorites(tripFirebaseKey).then((favsArray) => {
+        const deleteFavPromises = favsArray.map((fav) => deleteSingleFavorite(fav.favoriteFirebaseKey));
+        Promise.all(deleteStopPromises, deleteItemPromises, deleteFavPromises).then(() => {
+            deleteSingleTrip(tripFirebaseKey).then(resolve);
+        })
+      });
+    });
+  }).catch((error) => reject(error));
+});
+
+export { deleteTripStops, getUsersFavoriteTrips, deleteEntireTrip }

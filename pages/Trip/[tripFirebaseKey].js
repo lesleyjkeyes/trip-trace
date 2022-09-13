@@ -55,22 +55,30 @@ function SingleTripView() {
           <Card.Link href="#">Another Link</Card.Link>
         </Card.Body>
       </Card>
-      <div>
-        <Link passHref href={`/Trip/${tripFirebaseKey}/stop/new`}>
-          <Button variant="dark">Add Stop</Button>
-        </Link>
-      </div>
+      <>
+        { user.uid === trip.uid ? (
+          <div>
+            <Link passHref href={`/Trip/${tripFirebaseKey}/stop/new`}>
+              <Button variant="dark">Add Stop</Button>
+            </Link>
+          </div>
+        ) : ''}
+      </>
       <div className="stopsDiv">
         {stops?.map((stop, index) => (
           <StopCard uid={user.uid} index={index} key={stop.FirebaseKey} stopObj={stop} opts={{ height: '160', width: '280' }} onUpdate={getAllTripStops} router={router.asPath} />
         ))}
       </div>
-      <div>
-        <Link passHref href={`/Trip/${tripFirebaseKey}/item/new`}>
-          <Button variant="dark">Add Item</Button>
-        </Link>
+      <>
+        { user.uid === trip.uid ? (
+          <div>
+            <Link passHref href={`/Trip/${tripFirebaseKey}/item/new`}>
+              <Button variant="dark">Add Item</Button>
+            </Link>
+          </div>
+        ) : ''}
         <PackingTable uid={user.uid} tripFirebaseKey={tripFirebaseKey} />
-      </div>
+      </>
     </div>
   );
 }

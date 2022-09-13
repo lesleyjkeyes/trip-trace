@@ -6,7 +6,7 @@ import { deleteSingleStop } from '../.husky/api/stopData';
 
 export default function StopCard({
   // eslint-disable-next-line react/prop-types
-  stopObj, onUpdate, index, uid,
+  stopObj, onUpdate, index, uid = '',
 }) {
   const deleteThisStop = () => {
     if (window.confirm('Delete this stop?')) {
