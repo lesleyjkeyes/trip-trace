@@ -35,7 +35,7 @@ function YourTrips() {
         </div>
       ) : (
         <div>
-          <h1>Sign in to see your videos</h1>
+          <h1>Sign in to see your trips</h1>
         </div>
       )}
     </div>

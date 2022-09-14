@@ -1,5 +1,3 @@
-// Context API Docs: https://beta.reactjs.org/learn/passing-data-deeply-with-context
-
 import React, {
   createContext,
   useContext,
@@ -12,14 +10,10 @@ import { firebase } from '../client';
 
 const AuthContext = createContext();
 
-AuthContext.displayName = 'AuthContext'; // Context object accepts a displayName string property. React DevTools uses this string to determine what to display for the context. https://reactjs.org/docs/context.html#contextdisplayname
+AuthContext.displayName = 'AuthContext';
 
 const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
-  // there are 3 states for the user:
-  // null = application initial state, not yet loaded
-  // false = user is not logged in, but the app has loaded
-  // an object/value = user is logged in
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (fbUser) => {
@@ -39,15 +33,13 @@ const AuthProvider = (props) => {
       } else {
         setUser(false);
       }
-    }); // creates a single global listener for auth state changed
+    });
   }, []);
 
-  const value = useMemo( // https://reactjs.org/docs/hooks-reference.html#usememo
+  const value = useMemo(
     () => ({
       user,
       userLoading: user === null,
-      // as long as user === null, will be true
-      // As soon as the user value !== null, value will be false
     }),
     [user],
   );
