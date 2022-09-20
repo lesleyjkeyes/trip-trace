@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Image } from 'react-bootstrap';
+import { Image, NavLink } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../utils/context/authContext';
@@ -62,17 +62,15 @@ export default function TripCard({ tripObj, onUpdate }) {
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '400px' }} />
       <Card.Body>
-        <Link href={`/Trip/${tripObj?.tripFirebaseKey}`} passHref>
-          <Card.Title>{tripObj?.title}</Card.Title>
-        </Link>
+        <Card.Link href={`/Trip/${tripObj?.tripFirebaseKey}`}>{tripObj?.title}</Card.Link>
         <div className="vidCardImageDiv">
-          <Link href={`/userProfile/${tripObj?.uid}`} passHref>
+          <NavLink href={`/userProfile/${tripObj?.uid}`} passHref>
             <Image className="tripCardCreatorImage" src={tripObj?.userPhoto} />
-          </Link>
+          </NavLink>
         </div>
-        <Card.Text>
+        <Card.Link href={`/userProfile/${tripObj?.uid}`}>
           {tripObj?.userName}
-        </Card.Text>
+        </Card.Link>
         <Card.Text>
           Description: {tripObj?.description}
         </Card.Text>
