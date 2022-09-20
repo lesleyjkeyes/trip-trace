@@ -25,7 +25,18 @@ const updateUser = (uid, userUpdate) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-// eslint-disable-next-line import/prefer-default-export
+const getAllUsers = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/users.json`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch((error) => reject(error));
+});
+
 export {
-  updateUser, getUser, addUser,
+  updateUser, getUser, addUser, getAllUsers
 };
