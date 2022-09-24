@@ -60,17 +60,19 @@ export default function TripCard({ tripObj, onUpdate }) {
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '400px' }} />
+      <Card.Img variant="top" src={tripObj?.imageUrl} alt={tripObj?.title} style={{ height: '200px' }} />
       <Card.Body>
         <Card.Link href={`/Trip/${tripObj?.tripFirebaseKey}`}>{tripObj?.title}</Card.Link>
         <div className="vidCardImageDiv">
           <NavLink href={`/userProfile/${tripObj?.uid}`} passHref>
-            <Image className="tripCardCreatorImage" src={tripObj?.userPhoto} />
+            <Image style={{ height: '50px' }} className="tripCardCreatorImage" src={tripObj?.userPhoto} />
           </NavLink>
         </div>
-        <Card.Link href={`/userProfile/${tripObj?.uid}`}>
-          {tripObj?.userName}
-        </Card.Link>
+        <div className="userName">
+          <Card.Link href={`/userProfile/${tripObj?.uid}`}>
+            {tripObj?.userName}
+          </Card.Link>
+        </div>
         <Card.Text>
           Description: {tripObj?.description}
         </Card.Text>
